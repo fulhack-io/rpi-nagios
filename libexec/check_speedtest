@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#dont run all the time
+# result=$(</usr/local/nagios/libexec/speedtest-result)
+lastrun=$(tail -n 1 "/usr/local/nagios/libexec/speedtest-result" | grep "lastrun"| awk '{ print $2 }')
+
+if [ $lastrun -eq 6 ]
+then
+    run=`/usr/local/nagios/libexec/speedtest-cli > /usr/local/nagios/libexec/speedtest-result`
+    echo "lastrun 0" >> "/usr/local/nagios/libexec/speedtest-result"
+fi
+
+result=$(</usr/local/nagios/libexec/speedtest-result)
+
+latency=$(echo "$result" | grep "Hosted by"| awk '{ print $(NF-1) }')
+download=$(echo "$result" | grep "Download" | awk '{ print $2 }')
+upload=$(echo "$result" | grep "Upload" | awk '{ print $2 }')
+
+echo "Current test shows $download Mbit/s Download and $upload Mbit/s Upload over $latency ms latency | latency=$latency download=$download upload=$upload"
+
+lastrun=$((lastrun+1))
+
+if [ $lastrun -eq 7 ]
+then
+    sed -i '/lastrun/d' "/usr/local/nagios/libexec/speedtest-result"
+    lastrun=0
+fi
+
+echo "lastrun $lastrun" >> "/usr/local/nagios/libexec/speedtest-result"
