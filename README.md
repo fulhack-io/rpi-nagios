@@ -1,9 +1,14 @@
 # rpi-nagios
 
-# Please download initial img from https://fulhack.io/rpi-nagios.img
+# Version 1.6.1126
 
-CHANGELOG rpi-nagios.img
+Please download initial img from https://fulhack.io/rpi-nagios.img
 
-Nov.25 2015
+CHANGELOG
+
+1.6.1126
+- Upgraded to Nagios Core to v4.2.3
 - Added git tools
-- Upgraded to Nagios Core v4.2.3
+- Added Ntopng
+- Added Nprobe
+- Removed sflow-rt
