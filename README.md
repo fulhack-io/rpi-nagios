@@ -1,8 +1,21 @@
 # rpi-nagios
 
+A full Nagios Core installation with environmental monitoring on Raspbian
+NagiosGraph for historical data
+
+Requirements are:
+Raspberry Pi 3
+Sense Hat
+Minimum 8GB SD-Card
+
 # Version 1.6.1127
 
 Please download initial img from https://fulhack.io/rpi-nagios.img
+
+INSTALLATION
+Download and dd the image file, the Raspberry is configured for dhcp.
+SSH pi/raspberry
+Nagios installed and browsable at http://<ip>/nagios nagiosadmin/nagiosadmin
 
 CHANGELOG
 
