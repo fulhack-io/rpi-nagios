@@ -10,11 +10,13 @@ Raspberry Pi 3
 For Temperature and Humidity checks:
 Sense Hat
 
-# Version 1.6.1127
+Current Version 1.9.0619
 
 Please download initial img from https://fulhack.io/rpi-nagios.img
 
-INSTALLATION
+
+# INSTALLATION
+
 Download and use etcher or similar tool for flashing the image file.
 
 The Raspberry is configured for dhcp on eth0, if there is no ip address on eth0 a timed check will start the Wifi in AP mode and Broadcast the SSID "NagiosCore". The key for this SSID is also "NagiosCore"
