@@ -29,8 +29,12 @@ The performance data is being sampled to both PNP4Nagios and InfluxDB via NagFlu
 
 Grafana access: admin/admin
 
+
 When running in AP mode the Histou and notes_url will work out of the box, when running on dhcp or static IP three things needs to change:
 
+In the file /usr/share/grafana/public/dashboards/histou.js, change the "var url = 'http://10.223.223.1/histou/';" to match your setup.
+
+In the file /usr/local/nagios/etc/objects/templates.cfg, change both the "notes_url  http://10.223.223.1:3000" to match your setup.
 
 
 
