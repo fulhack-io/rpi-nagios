@@ -7,9 +7,13 @@ sense = SenseHat()
 humidity = sense.get_humidity()
 humidity = int(humidity)
 
-if humidity > 40:
+if humidity > 45:
     print "humidity is too high!, currently", humidity, "%| humidity=" + str(humidity) + ";40;45"
     sys.exit(2)
+
+if humidity > 40:
+    print "humidity is too high!, currently", humidity, "%| humidity=" + str(humidity) + ";40;45"
+    sys.exit(1)
 
 print "humidity is OK!, currently", humidity, "% | humidity=" + str(humidity) + ";40;45"
 sys.exit(0)

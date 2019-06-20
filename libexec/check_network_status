@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+Interface='eth0'
+HostAPDIP='10.223.223.1'
+NetworkUp=`/sbin/ifconfig $Interface`
+IP=`echo "$NetworkUp" | grep "inet addr" | wc -l`
+
+if [[ $IP -eq 0 ]]; then
+echo "eth0 connection is down, running in AP mode."
+hostapd=`pidof hostapd`
+
+if [[ -z $hostapd ]]; then
+# If there are any more actions required when the interface goes down, add them here
+echo "Attempting to start hostapd"
+sudo /etc/init.d/hostapd start
+echo "Attempting to start dnsmasq"
+sudo /etc/init.d/dnsmasq start
+echo "Setting IP Address for wlan0"
+sudo /sbin/ifconfig wlan0 $HostAPDIP netmask 255.255.255.0 up
+exit 1
+fi
+
+elif [[ $IP -eq 1 && $NetworkUp =~ $HostAPDIP ]]; then
+echo "IP is $HostAPDIP - System running in AP mode"
+exit 1
+else
+echo "eth0 connection is up, all seems well."
+hostapd=`pidof hostapd`
+
+if [[ ! -z $hostapd ]]; then
+echo "Attempting to stop hostapd"
+sudo /etc/init.d/hostapd stop
+echo "Attempting to stop dnsmasq"
+sudo /etc/init.d/dnsmasq stop
+exit 0
+fi
+fi
