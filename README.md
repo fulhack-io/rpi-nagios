@@ -10,7 +10,7 @@ Raspberry Pi 3
 For Temperature and Humidity checks:
 Sense Hat
 
-Current Version 1.9.0619
+Current Version 1.9.0622
 
 Please download initial img from https://fulhack.io/rpi-nagios.img
 
@@ -19,26 +19,32 @@ Please download initial img from https://fulhack.io/rpi-nagios.img
 
 Download and use etcher or similar tool for flashing the image file.
 
-The Raspberry is configured for dhcp on eth0, if there is no ip address on eth0 a timed check will start the Wifi in AP mode and Broadcast the SSID "NagiosCore". The key for this SSID is also "NagiosCore"
-The check will run continuusly, if it detects an IP on eth0 it will stop broadcasting the Wifi.
+The Raspberry is configured for dhcp on eth0 and will Broadcast the SSID "NagiosCore" from uap0. The key for this SSID is also "NagiosCore"
+
+Connect to the SSID and open a web browser and browse http://nagioscore/ A RasAP interface will enable you to connect to a separate Wifi with the Raspberry wlan0 and route your computer traffic.
+
+Nagios Access at http://<dhcp-ip>/nagios or if running in AP mode http://nagioscore/nagios, there is also a link in the RaspAP interface for ease of access. 
 
 SSH access: pi/raspberry
-Nagios Access at http://<dhcp-ip>/nagios or if running in AP mode http://10.223.223.1/nagios with nagiosadmin/nagiosadmin as credentials
+Web access nagiosadmin/nagiosadmin
+Grafana access admin/admin
 
 The performance data is being sampled to both PNP4Nagios and InfluxDB via NagFlux. Grafana is configured to read the performance data from InfluxDB. Both are reachable directly from the host or service via the small icons. PNP4Nagios will open in the main window and all other graphs attatched to the same host will be visable. The Grafana button will open in a separate tab/window over port 3000 and the button have pre-configured Histou/InfluxDB queries.
 
-Grafana access: admin/admin
+When running in AP mode the Histou and notes_url will work out of the box, when running on dhcp or static IP three things needs to change (or add to local DNS):
 
+In the file /usr/share/grafana/public/dashboards/histou.js, change the "var url = 'http://nagioscore/histou/';" to match your setup.
 
-When running in AP mode the Histou and notes_url will work out of the box, when running on dhcp or static IP three things needs to change:
+In the file /usr/local/nagios/etc/objects/templates.cfg, change both the "notes_url  http://nagioscore:3000" to match your setup.
 
-In the file /usr/share/grafana/public/dashboards/histou.js, change the "var url = 'http://10.223.223.1/histou/';" to match your setup.
-
-In the file /usr/local/nagios/etc/objects/templates.cfg, change both the "notes_url  http://10.223.223.1:3000" to match your setup.
-
+To change timezone, do sudo raspi-config from cli.
 
 
 CHANGELOG
+
+1.9.0622
+- Added RaspAP
+- Added uap0
 
 1.9.0619
 - Removed NagiosGraph 
