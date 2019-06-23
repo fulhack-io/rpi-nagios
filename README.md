@@ -23,7 +23,7 @@ The Raspberry is configured for dhcp on eth0 and will Broadcast the SSID "Nagios
 
 Connect to the SSID and open a web browser and browse http://nagioscore/ A RasAP interface will enable you to connect to a separate Wifi with the Raspberry wlan0 and route your computer traffic.
 
-Nagios Access at http://<dhcp-ip>/nagios or if running in AP mode http://nagioscore/nagios, there is also a link in the RaspAP interface for ease of access. 
+Nagios Access at http://dhcp-ip/nagios or if running in AP mode http://nagioscore/nagios, there is also a link in the RaspAP interface for ease of access. 
 
 SSH access: pi/raspberry
 Web access nagiosadmin/nagiosadmin
@@ -35,7 +35,7 @@ When running in AP mode the Histou and notes_url will work out of the box, when 
 
 In the file /usr/share/grafana/public/dashboards/histou.js, change the "var url = 'http://nagioscore/histou/';" to match your setup.
 
-In the file /usr/local/nagios/etc/objects/templates.cfg, change both the "notes_url  http://nagioscore:3000" to match your setup.
+In the file /usr/local/nagios/etc/objects/templates.cfg, change both (2) the "notes_url  http://nagioscore:3000" to match your setup.
 
 To change timezone, do sudo raspi-config from cli.
 
@@ -55,8 +55,8 @@ CHANGELOG
 - Added Nagflux
 - Added Histou
 - Added AP Mode if eth0 is not connected
-- upgraded to Nagios Core 4.4.3
 - Added Golang
+- upgraded to Nagios Core 4.4.3
 - Changed Check interval on Humidity/Temperature to every minute
 - Fixed a bug in the Humidity check
 
